@@ -1,3 +1,6 @@
+require 'socket' 
+require 'pry'
+
 class HelloServer
 
   def self.start_server
