@@ -16,8 +16,11 @@ class Server
           end
           hashed_lines = parse_request_lines(request_lines)
           body = server.read(hashed_lines['Content-Length'].to_i)
-          server.print response(hashed_lines, body)
-          server.print pre_format(hashed_lines)
+          to_print = response(hashed_lines, body)
+          pre = pre_format(hashed_lines)
+          server.print headers(to_print, pre)
+          server.print to_print
+          server.print pre
           server.close
           break if hashed_lines['Path'] == "/shutdown"
         end
@@ -25,6 +28,14 @@ class Server
 
   def response(hashed_lines, body)
     @path.path_dependent_output(hashed_lines['Path'], hashed_lines['Verb'], body)
+  end
+
+  def headers(to_print, pre)
+    ["http/1.1 200 ok",
+    "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
+    "server: ruby",
+    "content-type: text/html; charset=iso-8859-1",
+    "content-length: #{to_print.length+pre.length}\n\r\n"].join("\r\n")
   end
 
   def parse_request_lines(request_lines)

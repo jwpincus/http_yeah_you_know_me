@@ -1,4 +1,5 @@
 class Game
+  attr_writer :number_to_guess #this is here for testing
   def initialize
     @guess_counter = 0
     @number_to_guess = (0..100).to_a.shuffle.first
