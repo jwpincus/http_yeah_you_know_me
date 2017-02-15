@@ -31,7 +31,11 @@ class Server
   end
 
   def headers(to_print, pre)
-    ["http/1.1 200 ok",
+    re_code = '200 ok'
+    if to_print.include?("Response Code")
+      re_code = to_print.split(": ")[1]
+    end
+    ["http/1.1 #{re_code}",
     "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
     "server: ruby",
     "content-type: text/html; charset=iso-8859-1",

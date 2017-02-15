@@ -11,11 +11,11 @@ class Path
   
   def path_dependent_output(path, verb = "GET", body = nil)
     @hit_counter += 1
-    case path
+    case path.split('?')[0]
     when "/"
-      return nil
+      nil
     when "/hello"
-      return "<html><head></head><body><h1>Hello World!(#{@hit_counter})</h1></body></html>"
+      "<html><head></head><body><h1>Hello World!(#{@hit_counter})</h1></body></html>"
     when "/datetime"
       Time.now.strftime('%H:%M:%S on %a, %e %b %Y ')
     when "/start_game"
@@ -25,8 +25,10 @@ class Path
       @game.game(verb, body)
     when "/shutdown"
       "<html><head></head><body><h1>Total Requests: #{@hit_counter}</h1></body></html>"
-    else
+    when "/word_search"
       @word.word_search(path)
+    else 
+      "<html><head></head><body><h1>Response Code: 404 Not Found (#{@hit_counter})</h1></body></html>"
     end
   end
 

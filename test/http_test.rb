@@ -5,8 +5,6 @@ require './lib/http'
 require 'pry-state' 
 
 class TestServer < Minitest::Test
-
-
   def setup
     @conn = Faraday.new 'http://127.0.0.1:9292/'
     @request_lines = ["GET / HTTP/1.1",

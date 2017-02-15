@@ -1,4 +1,5 @@
 class WordSearch
+  
   def word_search(path)
     word = path.split('=')[-1]
     dictionary = File.open('./data/all_words.txt').read
@@ -8,4 +9,5 @@ class WordSearch
       "<html><head></head><body><h1>#{word.capitalize} is an unknown word</h1></body></html>"
     end
   end
+
 end
