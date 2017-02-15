@@ -34,12 +34,12 @@ class Server
     re_code = '200 ok'
     if to_print.include?("Response Code")
       re_code = to_print.split(": ")[1]
-    end
+    end if to_print
     ["http/1.1 #{re_code}",
     "date: #{Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')}",
     "server: ruby",
     "content-type: text/html; charset=iso-8859-1",
-    "content-length: #{to_print.length+pre.length}\n\r\n"].join("\r\n")
+    "content-length: #{(to_print.length+pre.length) if to_print}\n\r\n"].join("\r\n")
   end
 
   def parse_request_lines(request_lines)
