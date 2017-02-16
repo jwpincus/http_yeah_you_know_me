@@ -17,10 +17,11 @@ class Path
     when "/hello"
       "<html><head></head><body><h1>Hello World!(#{@hit_counter})</h1></body></html>"
     when "/datetime"
-      Time.now.strftime('%H:%M:%S on %a, %e %b %Y ')
+      "<html><head></head><body><h1>#{Time.now.strftime('%H:%M:%S on %a, %e %b %Y ')}</h1></body></html>"
+      
     when "/start_game"
       @game = Game.new
-      "Good Luck!"
+      "<html><head></head><body><h1>Good Luck!</h1></body></html>"
     when "/game"
       @game.game(verb, body)
     when "/shutdown"

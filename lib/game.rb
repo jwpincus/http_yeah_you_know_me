@@ -11,7 +11,7 @@ class Game
     if guess
       @guess_counter += 1
       @guessed_number = guess
-      "#{@guess_counter} guesses have been made and the most recent guess (#{guess}) was #{guessed_status(guess)}"
+      response
     else
       get_guess_request
     end
@@ -25,9 +25,13 @@ class Game
 
   def get_guess_request
     if @guessed_number
-        "#{@guess_counter} guesses have been made and the most recent guess (#{@guessed_number}) was #{guessed_status}"
+        response
     else
-      "No guesses made yet"
+      "<html><head></head><body><h1>No guesses made yet</h1></body></html>"
     end
+  end
+
+  def response
+    "<html><head></head><body><h1>#{@guess_counter} guesses have been made and the most recent guess (#{@guessed_number}) was #{guessed_status}</h1></body></html>"
   end
 end

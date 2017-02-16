@@ -47,17 +47,17 @@ class TestServer < Minitest::Test
 
   def test_date_time
     conn = @conn.get '/datetime'
-    assert_equal Time.now.strftime('%H:%M:%S on %a, %e %b %Y '), conn.body.split('<pre>')[0]
+    assert_equal "<html><head></head><body><h1>#{Time.now.strftime('%H:%M:%S on %a, %e %b %Y ')}</h1></body></html>", conn.body.split('<pre>')[0]
   end
 
   def test_start_new_game
     conn = @conn.get '/start_game'
-    assert_equal "Good Luck!", conn.body.split('<pre>')[0]
+    assert_equal "<html><head></head><body><h1>Good Luck!</h1></body></html>", conn.body.split('<pre>')[0]
   end
 
   def test_play_a_game
     conn = @conn.get '/game'
-    assert_equal "No guesses made yet", conn.body.split('<pre>')[0]
+    assert_equal "<html><head></head><body><h1>No guesses made yet</h1></body></html>", conn.body.split('<pre>')[0]
     conn = @conn.post '/game', {:guess => 101}
     assert_equal true, conn.body.split('<pre>')[0].include?("101")
     assert_equal true, conn.body.split('<pre>')[0].include?("guesses have been made and the most recent guess (101) was too high")
@@ -66,7 +66,7 @@ class TestServer < Minitest::Test
     assert_equal true, conn.body.split('<pre>')[0].include?("guesses have been made and the most recent guess (-1) was too low")
     conn = @conn.get '/start_game'
     conn = @conn.get '/game'
-    assert_equal "No guesses made yet", conn.body.split('<pre>')[0]
+    assert_equal "<html><head></head><body><h1>No guesses made yet</h1></body></html>", conn.body.split('<pre>')[0]
   end
 
   def test_z_shutdown

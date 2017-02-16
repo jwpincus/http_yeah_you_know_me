@@ -13,7 +13,7 @@ class TestPath < Minitest::Test
   end
 
   def test_datetime
-    assert_equal  Time.now.strftime('%H:%M:%S on %a, %e %b %Y '),Path.new.path_dependent_output("/datetime")
+    assert_equal "<html><head></head><body><h1>#{Time.now.strftime('%H:%M:%S on %a, %e %b %Y ')}</h1></body></html>" ,Path.new.path_dependent_output("/datetime")
   end
 
   def test_shutdown
